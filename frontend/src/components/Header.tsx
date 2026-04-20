@@ -1,0 +1,19 @@
+import { useTheme } from "../hooks/useTheme";
+import { Moon, Sun } from "lucide-react";
+
+const Header = () => {
+  const { toggleTheme, theme } = useTheme();
+  return (
+    <header className="text-end">
+      <button
+        onClick={toggleTheme}
+        className="text-black dark:text-white cursor-pointer pt-5 pr-5"
+      >
+        {theme === "light" ? <Sun size={30} /> : <Moon size={30} />}
+      </button>
+      <h1 className="text-center text-black dark:text-white text-3xl font-semibold">My Tasks</h1>
+    </header>
+  );
+};
+
+export default Header;
