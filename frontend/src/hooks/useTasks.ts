@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/axios";
 
-type Task = {
+export type Task = {
   id: number;
   title: string;
   done: boolean;
