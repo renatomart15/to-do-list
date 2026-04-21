@@ -16,6 +16,7 @@ export const getTasks = async (req: Request, res: Response) => {
     const { done } = req.query;
     const tasks = await prisma.task.findMany({
       where: done !== undefined ? { done: done === "true" } : {},
+      orderBy: { id: "asc" },
     });
     res.status(200).json(tasks);
   } catch (error) {
