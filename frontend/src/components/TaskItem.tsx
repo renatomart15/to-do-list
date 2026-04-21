@@ -1,32 +1,48 @@
 import { Pencil, Trash } from "lucide-react";
 import type { Task } from "../hooks/useTasks";
+import { useState } from "react";
+import Modal from "./Modal";
 
 type TaskItemProps = {
   task: Task;
   changeStatus: (id: number) => void;
+  deleteTask: (id: number) => void;
 };
 
-const TaskItem = ({ task, changeStatus }: TaskItemProps) => {
+const TaskItem = ({ task, changeStatus, deleteTask }: TaskItemProps) => {
+  const [showModal, setShowModal] = useState(false);
   return (
-    <li className="flex justify-between bg-white py-4 px-6 rounded-lg shadow-sm items-center w-110 text-black dark:text-white dark:bg-[#1e2939]">
-      <div className="flex">
-        <input
-          type="checkbox"
-          checked={task.done}
-          className="w-4 accent-black cursor-pointer dark:accent-white"
-          onClick={() => changeStatus(task.id)}
-        />
-        <h3
-          className={`pl-4 text-lg ${task.done ? "line-through text-gray-600 dark:text-gray-500" : ""}`}
-        >
-          {task.title}
-        </h3>
-      </div>
-      <div className="flex gap-4">
-        <Pencil size={18} className="cursor-pointer" />
-        <Trash size={18} className="cursor-pointer" />
-      </div>
-    </li>
+    <>
+      <li className="flex justify-between bg-white py-4 px-6 rounded-lg shadow-sm items-center w-110 text-black dark:text-white dark:bg-[#1e2939]">
+        <div className="flex">
+          <input
+            type="checkbox"
+            checked={task.done}
+            className="w-4 accent-black cursor-pointer dark:accent-white"
+            onClick={() => changeStatus(task.id)}
+          />
+          <h3
+            className={`pl-4 text-lg select-none ${task.done ? "line-through text-gray-600 dark:text-gray-500" : ""}`}
+          >
+            {task.title}
+          </h3>
+        </div>
+        <div className="flex gap-4">
+          <Pencil size={18} className="cursor-pointer hover:text-blue-500 transition" />
+          <Trash
+            size={18}
+            className="cursor-pointer hover:text-red-500 transition"
+            onClick={() => setShowModal(true)}
+          />
+        </div>
+      </li>
+      <Modal
+        isOpen={showModal}
+        onConfirm={() => deleteTask(task.id)}
+        onCancel={() => setShowModal(false)}
+        message={`Tem certeza de que deseja excluir "${task.title}"?`}
+      />
+    </>
   );
 };
 

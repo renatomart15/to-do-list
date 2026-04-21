@@ -35,5 +35,14 @@ export function useTasks() {
     }
   };
 
-  return { tasks, changeStatus };
+  const deleteTask = async (id: number) => {
+    try {
+      const deletedTask = await api.delete(`/tasks/${id}`);
+      setTasks(tasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { tasks, changeStatus, deleteTask };
 }

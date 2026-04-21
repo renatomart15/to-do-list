@@ -2,7 +2,7 @@ import { useTasks } from "../hooks/useTasks";
 import TaskItem from "./TaskItem";
 
 const TaskList = () => {
-  const { tasks, changeStatus } = useTasks();
+  const { tasks, changeStatus, deleteTask } = useTasks();
   return (
     <div className="flex flex-col items-center gap-4 my-6 text-gray-600 dark:text-gray-500">
       {tasks.length > 0 ? (
@@ -17,12 +17,12 @@ const TaskList = () => {
           </div>
           <ul className="flex flex-col gap-5">
             {tasks.map((task) => (
-              <TaskItem key={task.id} task={task} changeStatus={changeStatus} />
+              <TaskItem key={task.id} task={task} changeStatus={changeStatus} deleteTask={deleteTask} />
             ))}
           </ul>
         </>
       ) : (
-        <p>Tem tasks</p>
+        <p>Sem tasks</p>
       )}
     </div>
   );
