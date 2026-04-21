@@ -24,7 +24,7 @@ export function useTasks() {
 
   const changeStatus = async (id: number) => {
     try {
-      const task = await api.patch(`/tasks/${id}`);
+      const response = await api.patch(`/tasks/${id}`);
       setTasks(
         tasks.map((task) =>
           task.id === id ? { ...task, done: !task.done } : task,
@@ -37,7 +37,7 @@ export function useTasks() {
 
   const deleteTask = async (id: number) => {
     try {
-      const deletedTask = await api.delete(`/tasks/${id}`);
+      const response = await api.delete(`/tasks/${id}`);
       setTasks(tasks.filter((task) => task.id !== id));
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ export function useTasks() {
 
   const updateTask = async (id: number, title: string) => {
     try {
-      const updatedTask = await api.put(`/tasks/${id}`, { title });
+      const response = await api.put(`/tasks/${id}`, { title });
       setTasks(
         tasks.map((task) =>
           task.id === id ? { ...task, title: title } : task,
@@ -57,5 +57,14 @@ export function useTasks() {
     }
   };
 
-  return { tasks, changeStatus, deleteTask, updateTask };
+  const createTask = async (title: string) => {
+    try {
+      const response = await api.post("/tasks", { title });
+      setTasks([...tasks, response.data.newTask]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { tasks, changeStatus, deleteTask, updateTask, createTask };
 }
