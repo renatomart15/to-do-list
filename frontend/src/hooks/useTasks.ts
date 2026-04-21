@@ -22,5 +22,18 @@ export function useTasks() {
     getTasks();
   }, []);
 
-  return tasks;
+  const changeStatus = async (id: number) => {
+    try {
+      const task = await api.patch(`/tasks/${id}`);
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, done: !task.done } : task,
+        ),
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { tasks, changeStatus };
 }
