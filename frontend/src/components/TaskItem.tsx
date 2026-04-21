@@ -1,6 +1,5 @@
 import { Pencil, Trash } from "lucide-react";
 import type { Task } from "../hooks/useTasks";
-import { useTasks } from "../hooks/useTasks";
 
 type TaskItemProps = {
   task: Task;
