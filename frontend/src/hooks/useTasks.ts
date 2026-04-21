@@ -44,5 +44,18 @@ export function useTasks() {
     }
   };
 
-  return { tasks, changeStatus, deleteTask };
+  const updateTask = async (id: number, title: string) => {
+    try {
+      const updatedTask = await api.put(`/tasks/${id}`, { title });
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, title: title } : task,
+        ),
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { tasks, changeStatus, deleteTask, updateTask };
 }

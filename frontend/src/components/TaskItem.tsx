@@ -7,10 +7,18 @@ type TaskItemProps = {
   task: Task;
   changeStatus: (id: number) => void;
   deleteTask: (id: number) => void;
+  updateTask: (id: number, title: string) => void;
 };
 
-const TaskItem = ({ task, changeStatus, deleteTask }: TaskItemProps) => {
+const TaskItem = ({
+  task,
+  changeStatus,
+  deleteTask,
+  updateTask,
+}: TaskItemProps) => {
   const [showModal, setShowModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(task.title);
   return (
     <>
       <li className="flex justify-between bg-white py-4 px-6 rounded-lg shadow-sm items-center w-110 text-black dark:text-white dark:bg-[#1e2939]">
@@ -21,14 +29,35 @@ const TaskItem = ({ task, changeStatus, deleteTask }: TaskItemProps) => {
             className="w-4 accent-black cursor-pointer dark:accent-white"
             onClick={() => changeStatus(task.id)}
           />
-          <h3
+          <div
             className={`pl-4 text-lg select-none ${task.done ? "line-through text-gray-600 dark:text-gray-500" : ""}`}
           >
-            {task.title}
-          </h3>
+            {isEditing ? (
+              <input
+                type="text"
+                autoFocus
+                value={editedTitle}
+                className="focus:outline-0"
+                onChange={(e) => setEditedTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    updateTask(task.id, editedTitle);
+                    setIsEditing(false);
+                  }
+                }}
+                onBlur={() => setIsEditing(false)}
+              />
+            ) : (
+              <span>{task.title}</span>
+            )}
+          </div>
         </div>
         <div className="flex gap-4">
-          <Pencil size={18} className="cursor-pointer hover:text-blue-500 transition" />
+          <Pencil
+            size={18}
+            className="cursor-pointer hover:text-blue-500 transition"
+            onClick={() => setIsEditing(true)}
+          />
           <Trash
             size={18}
             className="cursor-pointer hover:text-red-500 transition"
