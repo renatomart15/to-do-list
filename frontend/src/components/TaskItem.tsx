@@ -48,11 +48,11 @@ const TaskItem = ({
                 onBlur={() => setIsEditing(false)}
               />
             ) : (
-              <span>{task.title}</span>
+              <p className="wrap-break-word max-w-73">{task.title}</p>
             )}
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 shrink-0">
           <Pencil
             size={18}
             className="cursor-pointer hover:text-blue-500 transition"
