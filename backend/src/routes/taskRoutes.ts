@@ -7,13 +7,15 @@ import {
   changeStatusTask,
 } from "../controllers/taskController";
 
+import auth from "../middlewares/authMiddleware";
+
 const router = Router();
 
-router.post("/", createTask);
-router.get("/", getTasks);
+router.post("/", auth, createTask);
+router.get("/", auth, getTasks);
 
-router.delete("/:id", deleteTask);
-router.put("/:id", updateTask);
-router.patch("/:id", changeStatusTask);
+router.delete("/:id", auth, deleteTask);
+router.put("/:id", auth, updateTask);
+router.patch("/:id", auth, changeStatusTask);
 
 export default router;

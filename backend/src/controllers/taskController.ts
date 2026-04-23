@@ -3,8 +3,9 @@ import { prisma } from "../../lib/prisma";
 
 export const createTask = async (req: Request, res: Response) => {
   try {
+    const { id:userId } = (req as any).user;
     const { title } = req.body;
-    const newTask = await prisma.task.create({ data: { title } });
+    const newTask = await prisma.task.create({ data: { title, userId: userId } });
     res.status(201).json({ message: "Task criada com sucesso", newTask });
   } catch (error) {
     res.status(500).send("Erro ao criar task");
@@ -13,9 +14,9 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const getTasks = async (req: Request, res: Response) => {
   try {
-    const { done } = req.query;
+    const { id:userId } = (req as any).user;
     const tasks = await prisma.task.findMany({
-      where: done !== undefined ? { done: done === "true" } : {},
+      where: { userId: userId },
       orderBy: { id: "asc" },
     });
     res.status(200).json(tasks);
@@ -26,10 +27,11 @@ export const getTasks = async (req: Request, res: Response) => {
 
 export const deleteTask = async (req: Request, res: Response) => {
   const taskId = Number(req.params.id);
+  const { id: userId } = (req as any).user;
   try {
     const task = await prisma.task.findUnique({ where: { id: taskId } });
     if (task) {
-      const deletedTask = await prisma.task.delete({ where: { id: taskId } });
+      const deletedTask = await prisma.task.delete({ where: { id: taskId, userId: userId } });
       return res
         .status(200)
         .json({ message: "Task deletada com suceso", task: deletedTask });
@@ -43,11 +45,12 @@ export const deleteTask = async (req: Request, res: Response) => {
 export const updateTask = async (req: Request, res: Response) => {
   const { title } = req.body;
   const taskId = Number(req.params.id);
+  const { id:userId } = (req as any).user;
   try {
     const task = await prisma.task.findUnique({ where: { id: taskId } });
     if (task) {
       const updatedTask = await prisma.task.update({
-        where: { id: taskId },
+        where: { id: taskId, userId: userId },
         data: { title: title },
       });
       return res
@@ -62,11 +65,12 @@ export const updateTask = async (req: Request, res: Response) => {
 
 export const changeStatusTask = async (req: Request, res: Response) => {
   const taskId = Number(req.params.id);
+  const { id:userId } = (req as any).user;
   try {
     const task = await prisma.task.findUnique({ where: { id: taskId } });
     if (task) {
       const ChangedTask = await prisma.task.update({
-        where: { id: taskId },
+        where: { id: taskId, userId: userId },
         data: {
           done: !task.done,
         },
