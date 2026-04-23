@@ -5,7 +5,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <aside
-      className={`${isOpen ? "w-64" : "w-20"} text-black bg-white dark:bg-[#1e2939] dark:text-white  flex flex-col px-2`}
+      className={`${isOpen ? "w-64" : "w-20"} text-black bg-white dark:bg-[#1e2939] dark:text-white  flex flex-col px-2 select-none`}
     >
       <Menu
         size={30}
