@@ -6,7 +6,7 @@ import { useTasks } from "./hooks/useTasks";
 
 function App() {
   const { tasks, createTask, deleteTask, updateTask, changeStatus } =
-    useTasks();
+    useTasks(); 
   return (
     <main className="bg-[#f3f4f6] dark:bg-[#101828] min-h-screen flex transition-colors duration-300">
       <Sidebar />

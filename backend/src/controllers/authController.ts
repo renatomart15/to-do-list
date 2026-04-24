@@ -30,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
         email: email,
       },
     });
-    
+
     if (!user) {
       return res.status(401).send("Email ou senha incorretos");
     }
@@ -47,6 +47,7 @@ export const login = async (req: Request, res: Response) => {
     );
     return res.status(200).json({ token: token });
   } catch (error) {
-    res.status(500).send("Erro no servidor ao cadastrar usuário");
+    console.log(error);
+    res.status(500).send("Erro no servidor");
   }
 };
