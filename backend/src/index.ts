@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import taskRoutes from "./routes/taskRoutes";
 import authRoutes from "./routes/authRoutes";

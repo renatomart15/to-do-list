@@ -5,24 +5,30 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
     const user = await prisma.user.findUnique({ where: { email: email } });
     if (user) {
       return res.status(409).send("Email já está cadastrado");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
-      data: { email: email, password: hashedPassword },
+      data: { email: email, password: hashedPassword, name },
     });
-    res
-      .status(201)
-      .json({ message: "Usuário criado com sucesso", user: newUser });
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: "30d" },
+    );
+
+    res.status(201).json({ message: "Usuário criado com sucesso", token });
   } catch (error) {
+    console.log(error);
     res.status(500).send("Erro no servidor ao cadastrar usuário");
   }
 };
 
 export const login = async (req: Request, res: Response) => {
+  console.log("chegou no login", req.body);
   try {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({
@@ -46,11 +52,12 @@ export const login = async (req: Request, res: Response) => {
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET!,
-      { expiresIn: "1d" },
+      { expiresIn: "30d" },
     );
     return res.status(200).json({ token: token });
   } catch (error) {
-    console.log(error);
+    console.log("ERRO:", JSON.stringify(error));
+    console.log("ERRO mensagem:", (error as Error).message);
     res.status(500).send("Erro no servidor");
   }
 };

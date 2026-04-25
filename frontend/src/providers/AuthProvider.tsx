@@ -17,9 +17,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const register = async (email: string, password: string) => {
+  const register = async (email: string, password: string, name: string) => {
     try {
-      const response = await api.post("/user/register", { email, password });
+      const response = await api.post("/user/register", {
+        email,
+        password,
+        name,
+      });
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
     } catch (error) {
       console.log(error);
     }
@@ -31,9 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider
-      value={{ token, login, register, logout }}
-    >
+    <AuthContext.Provider value={{ token, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

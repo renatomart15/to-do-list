@@ -1,16 +1,9 @@
 import { createContext } from "react";
 
-export type TokenPayload = {
-  id: number;
-  email: string;
-  name: string;
-  avatar: string;
-};
-
 export type Auth = {
   token: string | null;
   login: (email: string, password: string) => void;
-  register: (email: string, password: string) => void;
+  register: (email: string, password: string, name:string) => void;
   logout: () => void;
 };
 
