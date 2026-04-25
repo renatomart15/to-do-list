@@ -30,14 +30,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("token");
   };
 
-  const loginWithToken = (token: string) => {
-    setToken(token);
-    localStorage.setItem("token", token);
-  };
-
   return (
     <AuthContext.Provider
-      value={{ token, login, register, logout, loginWithToken }}
+      value={{ token, login, register, logout }}
     >
       {children}
     </AuthContext.Provider>
