@@ -3,10 +3,20 @@ import Sidebar from "./components/Sidebar";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import { useTasks } from "./hooks/useTasks";
+import { useEffect } from "react";
 
 function App() {
   const { tasks, createTask, deleteTask, updateTask, changeStatus } =
-    useTasks(); 
+    useTasks();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("token", token);
+      window.history.replaceState({}, "", "/");
+    }
+  }, []);
   return (
     <main className="bg-[#f3f4f6] dark:bg-[#101828] min-h-screen flex transition-colors duration-300">
       <Sidebar />

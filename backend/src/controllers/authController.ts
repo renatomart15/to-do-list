@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
     });
     res
       .status(201)
-      .json({ message: "Usuário criato com sucesso", user: newUser });
+      .json({ message: "Usuário criado com sucesso", user: newUser });
   } catch (error) {
     res.status(500).send("Erro no servidor ao cadastrar usuário");
   }
@@ -35,6 +35,9 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).send("Email ou senha incorretos");
     }
 
+    if (!user.password) {
+      return res.status(401).send("Email ou senha incorretos");
+    }
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).send("Email ou senha incorretos");
