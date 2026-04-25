@@ -5,6 +5,7 @@ export type Auth = {
   login: (email: string, password: string) => void;
   register: (email: string, password: string) => void;
   logout: () => void;
+  loginWithToken: (token: string) => void;
 };
 
 export const AuthContext = createContext<Auth | null>(null);
