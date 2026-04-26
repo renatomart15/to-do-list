@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { Menu, ListTodo } from "lucide-react";
+import {
+  Menu,
+  ListTodo,
+  UserRoundCheck,
+  UserRoundX,
+  LogOut,
+} from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import LoginModal from "./LoginModal";
+import Modal from "./Modal";
 import RegisterModal from "./RegisterModal";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const { token, login, register, logout } = useAuth();
 
@@ -21,33 +29,40 @@ const Sidebar = () => {
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (
-        <div className="mt-5">
+        <div className="mt-5 mb-3">
           {token ? (
             <div>
-              <h3 className="text-lg font-semibold text-center bg-blue-500 text-white rounded-lg py-1.5 mb-2">
-                Conta
-              </h3>
-              <div className="ml-5">
+              <div className="flex justify-center mb-2">
+                <div className="text-black dark:text-white bg-[#f4f5f6] p-4 rounded-full dark:bg-[#4a5565]">
+                  <UserRoundCheck size={45} className="" />
+                </div>
+              </div>
+              <div className="text-center mt-3">
                 <p className=" flex flex-col">
-                  <span className="font-semibold">Nome:</span>
-                  <span>dawodubnawpdioubaw</span>
+                  <span className="font-semibold text-xl dark:text-white">
+                    Nome
+                  </span>
                 </p>
-                <p className="mt-1 flex flex-col">
-                  <span className="font-semibold">Email:</span>
-                  <span>dawodubnawpdioubaw</span>
+                <p className="flex flex-col">
+                  <span className="text-[#838993]">Email</span>
                 </p>
               </div>
               <div className="flex flex-col items-center">
                 <button
-                  className="mt-12 py-2 px-4 font-semibold text-white w-40 bg-red-500 rounded-lg cursor-pointer active:scale-98 transition"
-                  onClick={() => logout()}
+                  className="flex gap-2 justify-center items-center mt-5 py-2 font-semibold text-white w-30 bg-red-500 rounded-lg cursor-pointer active:scale-98 transition"
+                  onClick={() => setShowLogoutModal(true)}
                 >
-                  Sair
+                  Sair <LogOut size={20} />
                 </button>
               </div>
             </div>
           ) : (
             <div className="flex flex-col items-center">
+              <div className="flex justify-center mb-5">
+                <div className="text-black dark:text-white bg-[#f4f5f6] dark:bg-[#4a5565] p-4 rounded-full">
+                  <UserRoundX size={45} className="" />
+                </div>
+              </div>
               <button
                 className="py-2 px-4 bg-black font-semibold text-white rounded-lg w-40 cursor-pointer active:scale-98 transition dark:bg-[#4a5565]"
                 onClick={() => setShowRegisterModal(true)}
@@ -89,6 +104,15 @@ const Sidebar = () => {
           setShowRegisterModal(false);
         }}
         onCancel={() => setShowRegisterModal(false)}
+      />
+      <Modal
+        isOpen={showLogoutModal}
+        onConfirm={() => {
+          logout();
+          setShowLogoutModal(false);
+        }}
+        onCancel={() => setShowLogoutModal(false)}
+        message={"Tem certeza de que deseja Sair?"}
       />
     </aside>
   );
