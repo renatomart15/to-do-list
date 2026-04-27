@@ -7,17 +7,15 @@ import {
   LogOut,
 } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import LoginModal from "./LoginModal";
 import Modal from "./Modal";
-import RegisterModal from "./RegisterModal";
+import AuthModal from "./AuthModal";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  const { token, login, register, logout } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState("");
+  const { token, logout } = useAuth();
 
   return (
     <aside
@@ -60,19 +58,25 @@ const Sidebar = () => {
             <div className="flex flex-col items-center">
               <div className="flex justify-center mb-5">
                 <div className="text-black dark:text-white bg-[#f4f5f6] dark:bg-[#4a5565] p-4 rounded-full">
-                  <UserRoundX size={45} className="" />
+                  <UserRoundX size={45} />
                 </div>
               </div>
               <button
                 className="py-2 px-4 bg-black font-semibold text-white rounded-lg w-40 cursor-pointer active:scale-98 transition dark:bg-[#4a5565]"
-                onClick={() => setShowRegisterModal(true)}
+                onClick={() => {
+                  setAuthMode("cadastro");
+                  setShowAuthModal(true);
+                }}
               >
                 Cadastrar
               </button>
               <button className="py-2 px-4 font-semibold w-40">
                 <span
                   className="cursor-pointer"
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={() => {
+                    setAuthMode("login");
+                    setShowAuthModal(true);
+                  }}
                 >
                   Entrar
                 </span>
@@ -89,22 +93,13 @@ const Sidebar = () => {
         />
         {isOpen && <p className="text-black dark:text-white">My Tasks</p>}
       </div>
-      <LoginModal
-        isOpen={showLoginModal}
-        onConfirm={async (email, password) => {
-          await login(email, password);
-          setShowLoginModal(false);
-        }}
-        onCancel={() => setShowLoginModal(false)}
+
+      <AuthModal
+        isOpen={showAuthModal}
+        authMode={authMode}
+        onClose={() => setShowAuthModal(false)}
       />
-      <RegisterModal
-        isOpen={showRegisterModal}
-        onConfirm={async (email, password, name) => {
-          register(email, password, name);
-          setShowRegisterModal(false);
-        }}
-        onCancel={() => setShowRegisterModal(false)}
-      />
+
       <Modal
         isOpen={showLogoutModal}
         onConfirm={() => {
