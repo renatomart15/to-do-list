@@ -47,9 +47,19 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
           </div>
         </div>
         {mode === "login" ? (
-          <LoginForm onConfirm={login} />
+          <LoginForm
+            onConfirm={async (email, password) => {
+              await login(email, password);
+              onClose();
+            }}
+          />
         ) : (
-          <RegisterForm onConfirm={register} />
+          <RegisterForm
+            onConfirm={async (email, password, name) => {
+              await register(email, password, name);
+              onClose();
+            }}
+          />
         )}
       </div>
     </div>

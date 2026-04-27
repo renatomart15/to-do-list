@@ -3,7 +3,6 @@ import Sidebar from "./components/Sidebar";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import { useTasks } from "./hooks/useTasks";
-import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const { tasks, createTask, deleteTask, updateTask, changeStatus } =
