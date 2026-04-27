@@ -9,7 +9,7 @@ const LoginForm = ({ onConfirm }: LoginFormProps) => {
   const [form, setForm] = useState({ email: "", password: "" });
   return (
     <form className="p-6 rounded-lg select-none flex flex-col gap-4">
-      <label className="flex bg-white dark:bg-[#4a5565] items-center rounded-4xl py-1 px-3 text-base">
+      <label className="flex bg-white dark:bg-[#4a5565] items-center rounded-4xl py-1 px-3 text-base mt-7">
         <Mail size={16} className="text-gray-500 dark:text-gray-300" />
         <input
           type="email"
@@ -20,7 +20,7 @@ const LoginForm = ({ onConfirm }: LoginFormProps) => {
           className="px-2 py-1 border-none focus:outline-0 font-normal"
         />
       </label>
-      <label className="flex bg-white dark:bg-[#4a5565] items-center rounded-4xl py-1 px-3 text-base">
+      <label className="flex bg-white dark:bg-[#4a5565] items-center rounded-4xl py-1 px-3 text-base mb-7">
         <Lock size={16} className="text-gray-500 dark:text-gray-300" />
         <input
           type="password"
