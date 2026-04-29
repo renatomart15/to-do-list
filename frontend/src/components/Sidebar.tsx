@@ -15,7 +15,7 @@ const Sidebar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState("");
-  const { token, logout } = useAuth();
+  const { token, logout, user } = useAuth();
 
   return (
     <aside
@@ -38,11 +38,11 @@ const Sidebar = () => {
               <div className="text-center mt-3">
                 <p className=" flex flex-col">
                   <span className="font-semibold text-xl dark:text-white">
-                    Nome
+                    {user && user.name}
                   </span>
                 </p>
                 <p className="flex flex-col">
-                  <span className="text-[#838993]">Email</span>
+                  <span className="text-[#838993]">{user && user.email}</span>
                 </p>
               </div>
               <div className="flex flex-col items-center">
@@ -56,7 +56,7 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="flex flex-col items-center">
-              <div className="flex justify-center mb-5">
+              <div className="flex justify-center mb-9">
                 <div className="text-black dark:text-white bg-[#f4f5f6] dark:bg-[#4a5565] p-4 rounded-full">
                   <UserRoundX size={45} />
                 </div>
@@ -85,8 +85,8 @@ const Sidebar = () => {
           )}
         </div>
       )}
-      <div className=" mt-3 mb-5 mx-1 h-0.5 bg-[#6a7282] dark:bg-[#647282] rounded-4xl"></div>
-      <div className="bg-[#f4f5f6] dark:bg-[#4a5565] dark:text-white rounded-lg mt-1 flex items-center text-lg font-semibold cursor-pointer">
+      <div className=" mt-5 mb-5 mx-1 h-0.5 bg-[#6a7282] dark:bg-[#647282] rounded-4xl"></div>
+      <div className="bg-[#f4f5f6] dark:bg-[#4a5565] dark:text-white rounded-lg flex items-center text-lg font-semibold cursor-pointer">
         <ListTodo
           size={30}
           className="cursor-pointer mx-4 my-1 text-black dark:text-white"
