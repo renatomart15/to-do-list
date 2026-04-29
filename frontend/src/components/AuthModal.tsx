@@ -3,6 +3,7 @@ import RegisterForm from "./RegisterForm";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { X } from "lucide-react";
+import { motion } from "framer-motion";
 
 type AuthModal = {
   isOpen: boolean;
@@ -31,15 +32,21 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
           />
         </div>
         <div className="flex justify-center">
-          <div className="flex text-base font-semibold my-6 shadow-[0_0_10px_0.05px] shadow-blue-500 rounded-4xl">
+          <div className="relative flex text-base font-semibold my-6 shadow-[0_0_10px_0.05px] shadow-blue-500 rounded-4xl">
+            <motion.div
+              className="absolute top-0 bottom-0 bg-blue-500 rounded-4xl"
+              animate={{ left: mode === "cadastro" ? 0 : "50%" }}
+              style={{ width: "50%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
             <div
-              className={`${mode === "cadastro" ? "bg-blue-500 text-white" : "bg-none"} flex justify-center items-center py-2 px-4 cursor-pointer  rounded-4xl w-26`}
+              className={`relative z-10 flex justify-center items-center py-2 px-4 cursor-pointer rounded-4xl w-26 ${mode === "cadastro" ? "text-white" : ""}`}
               onClick={() => setMode("cadastro")}
             >
               Cadastro
             </div>
             <div
-              className={`${mode === "login" ? "bg-blue-500 text-white" : "bg-none"} flex justify-center items-center py-2 px-4 cursor-pointer  rounded-4xl w-26`}
+              className={`relative z-10 flex justify-center items-center py-2 px-4 cursor-pointer rounded-4xl w-26 ${mode === "login" ? "text-white" : ""}`}
               onClick={() => setMode("login")}
             >
               Login
