@@ -59,7 +59,7 @@ const Sidebar = () => {
                 </div>
                 <div className="flex flex-col items-center">
                   <button
-                    className="flex gap-2 justify-center items-center mt-5 py-1 font-semibold text-white w-30 bg-red-500 rounded-lg cursor-pointer active:scale-98 transition"
+                    className="flex gap-2 justify-center items-center mt-4 py-1 font-semibold text-white w-30 bg-red-500 rounded-lg cursor-pointer active:scale-98 transition"
                     onClick={() => setShowLogoutModal(true)}
                   >
                     Sair <LogOut size={20} />
