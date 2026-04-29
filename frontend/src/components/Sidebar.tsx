@@ -43,8 +43,8 @@ const Sidebar = () => {
             {token ? (
               <div>
                 <div className="flex justify-center mb-2">
-                  <div className="text-black dark:text-white bg-[#f4f5f6] p-4 rounded-full dark:bg-[#4a5565]">
-                    <UserRoundCheck size={45} className="" />
+                  <div className="text-green-500 bg-green-500/20 p-4 rounded-full">
+                    <UserRoundCheck size={45} />
                   </div>
                 </div>
                 <div className="text-center mt-3">
@@ -69,7 +69,7 @@ const Sidebar = () => {
             ) : (
               <div className="flex flex-col items-center">
                 <div className="flex justify-center mb-9">
-                  <div className="text-black dark:text-white bg-[#f4f5f6] dark:bg-[#4a5565] p-4 rounded-full">
+                  <div className="text-red-500 bg-red-500/20 p-4 rounded-full">
                     <UserRoundX size={45} />
                   </div>
                 </div>
