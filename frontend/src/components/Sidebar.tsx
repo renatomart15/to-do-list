@@ -82,7 +82,7 @@ const Sidebar = () => {
                 >
                   Cadastrar
                 </button>
-                <button className="py-2 px-4 font-semibold w-40">
+                <button className="py-3 px-4 font-semibold w-40">
                   <span
                     className="cursor-pointer"
                     onClick={() => {
