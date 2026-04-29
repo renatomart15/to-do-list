@@ -119,7 +119,10 @@ const Sidebar = () => {
       <AuthModal
         isOpen={showAuthModal}
         authMode={authMode}
-        onClose={() => setShowAuthModal(false)}
+        onClose={() => {
+          setAuthMode("");
+          setShowAuthModal(false);
+        }}
       />
 
       <Modal
