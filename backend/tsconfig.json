@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./",
     "module": "Commonjs",
     "moduleResolution": "bundler",
     "target": "ES2023",
