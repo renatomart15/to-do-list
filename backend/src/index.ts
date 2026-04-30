@@ -13,7 +13,11 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "https://to-do-list-2xzv.onrender.com",
+      "https://to-do-list-ebon-psi-95.vercel.app/",
+    ],
+    credentials: true,
   }),
 );
 
