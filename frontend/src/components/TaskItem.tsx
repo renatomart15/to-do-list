@@ -21,7 +21,7 @@ const TaskItem = ({
   const [editedTitle, setEditedTitle] = useState(task.title);
   return (
     <>
-      <li className="flex justify-between bg-white py-4 px-6 rounded-lg shadow-sm items-center w-110 text-black dark:text-white dark:bg-[#1e2939]">
+      <li className="flex justify-between bg-white py-3 px-4 md:py-4 md:px-6 rounded-lg shadow-sm items-center w-85 md:w-110 text-black dark:text-white dark:bg-[#1e2939]">
         <div className="flex">
           <input
             type="checkbox"
@@ -48,7 +48,7 @@ const TaskItem = ({
                 onBlur={() => setIsEditing(false)}
               />
             ) : (
-              <p className="wrap-break-word max-w-73">{task.title}</p>
+              <p className="wrap-break-word md:max-w-73">{task.title}</p>
             )}
           </div>
         </div>

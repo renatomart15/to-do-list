@@ -22,7 +22,7 @@ const Sidebar = () => {
     <motion.aside
       animate={{ width: isOpen ? 256 : 80 }}
       transition={{ duration: 0.1 }}
-      className="text-black bg-white dark:bg-[#1e2939] dark:text-white  flex flex-col px-2 select-none"
+      className="fixed md:static md:border-none text-black bg-white dark:bg-[#1e2939] dark:text-white  flex flex-col px-2 select-none rounded-br-lg pb-5 md:pb-0 border-r-2 border-b-2 border-[#4a5565]"
     >
       <Menu
         size={30}
@@ -98,8 +98,8 @@ const Sidebar = () => {
           </motion.div>
         )}
       </motion.div>
-      <div className=" mt-5 mb-5 mx-1 h-0.5 bg-[#6a7282] dark:bg-[#647282] rounded-4xl"></div>
-      <div className="bg-[#f4f5f6] dark:bg-[#4a5565] dark:text-white rounded-lg flex items-center text-lg font-semibold cursor-pointer">
+      <div className="hidden md:block mt-5 mb-5 mx-1 h-0.5 bg-[#6a7282] dark:bg-[#647282] rounded-4xl"></div>
+      <div className="hidden bg-[#f4f5f6] dark:bg-[#4a5565] dark:text-white rounded-lg md:flex items-center text-lg font-semibold cursor-pointer">
         <ListTodo
           size={30}
           className="cursor-pointer mx-4 my-1 text-black dark:text-white"

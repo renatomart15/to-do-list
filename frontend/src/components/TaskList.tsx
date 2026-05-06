@@ -26,8 +26,8 @@ const TaskList = ({
     <div className="flex flex-col items-center gap-4 my-6 text-gray-600 dark:text-gray-500">
       {tasks.length > 0 ? (
         <>
-          <div className="flex justify-between w-108 text-base">
-            <div className="flex gap-1 items-center select-none">
+          <div className="flex justify-between w-83 md:w-110 text-base">
+            <div className="flex gap-2 md:gap-1 items-center select-none">
               <span
                 onClick={() => setFilter("all")}
                 className={`cursor-pointer ${filter === "all" ? "text-black font-semibold dark:text-white" : ""}`}
