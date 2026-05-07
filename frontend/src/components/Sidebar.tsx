@@ -22,7 +22,7 @@ const Sidebar = () => {
     <motion.aside
       animate={{ width: isOpen ? 256 : 80 }}
       transition={{ duration: 0.1 }}
-      className="fixed md:static md:border-none text-black bg-white dark:bg-[#1e2939] dark:text-white  flex flex-col px-2 select-none rounded-br-lg pb-5 md:pb-0 border-r-2 border-b-2 border-[#4a5565]"
+      className={`${isOpen ? "h-screen" : "rounded-br-lg"} fixed md:static md:border-none text-black bg-white dark:bg-[#1e2939] dark:text-white flex flex-col px-2 select-none pb-5 md:pb-0 border-r-2 border-b-2 border-[#4a5565]`}
     >
       <Menu
         size={30}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
+import { GoogleLogin } from "@react-oauth/google";
 
 type AuthModal = {
   isOpen: boolean;
@@ -52,6 +53,23 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
               Login
             </div>
           </div>
+        </div>
+        <div className="flex justify-center mt-2 mb-5">
+          <GoogleLogin
+            text="continue_with"
+            theme="filled_blue"
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Erro no login com Google");
+            }}
+          />
+        </div>
+        <div className="flex items-center justify-center gap-3 mb-1">
+          <div className="h-0.5 w-[33%] rounded-2xl bg-gray-500 dark:bg-[#878e99]"></div>
+          <p className="text-center text-gray-500 dark:text-[#878e99]">ou</p>
+          <div className="h-0.5 w-[33%] rounded-2xl bg-gray-500 dark:bg-[#878e99]"></div>
         </div>
         {mode === "login" ? (
           <LoginForm
