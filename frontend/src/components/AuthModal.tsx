@@ -66,7 +66,7 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
             }}
           />
         </div>
-        <div className="flex items-center justify-center gap-3 mb-1">
+        <div className="flex items-center justify-center gap-3">
           <div className="h-0.5 w-[33%] rounded-2xl bg-gray-500 dark:bg-[#878e99]"></div>
           <p className="text-center text-gray-500 dark:text-[#878e99]">ou</p>
           <div className="h-0.5 w-[33%] rounded-2xl bg-gray-500 dark:bg-[#878e99]"></div>
