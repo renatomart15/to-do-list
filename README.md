@@ -1,6 +1,6 @@
 #  To-Do List Full Stack
  
-Uma aplicação de gerenciamento de tarefas com suporte a modo convidado e autenticação de usuários. Desenvolvido como projeto de estudos full stack.
+Uma aplicação de gerenciamento de tarefas com suporte a modo convidado, onde a aplicação administra as tasks através do localStorage, e autenticação de usuários com JWT, onde a aplicação passa a user a API para manejar as tasks quando o usuário está autenticado. Desenvolvido como projeto de estudos full stack.
  
 ##  Tecnologias
  
@@ -51,7 +51,7 @@ npx prisma migrate dev
 npm run dev
 ```
  
-O backend roda em `http://localhost:3000`
+O backend roda em `http://localhost:10000`
  
 ### Frontend
  
