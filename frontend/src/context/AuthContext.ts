@@ -5,7 +5,7 @@ export type User = {
   id: number;
   email: string;
   name: string;
-  picture: string;
+  picture?: string;
 };
 
 export type Auth = {
