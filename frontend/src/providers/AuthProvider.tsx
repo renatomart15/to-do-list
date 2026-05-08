@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const googleAuth = async (CredentialReponse: CredentialResponse) => {
     try {
-      const response = await api.post("/googleAuth", {
+      const response = await api.post("/user/googleAuth", {
         credential: CredentialReponse.credential,
       });
       setToken(response.data.token);
