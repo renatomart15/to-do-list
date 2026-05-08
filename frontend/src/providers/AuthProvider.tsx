@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { api } from "../lib/axios";
 import { jwtDecode } from "jwt-decode";
 import type { User } from "../context/AuthContext";
+import { type CredentialResponse } from "@react-oauth/google";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(
@@ -49,8 +50,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("token");
   };
 
+  const googleAuth = async (CredentialReponse: CredentialResponse) => {
+    try {
+      const response = await api.post("/googleAuth", {
+        credential: CredentialReponse.credential,
+      });
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ token, login, register, logout, user }}>
+    <AuthContext.Provider
+      value={{ token, login, register, logout, user, googleAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );

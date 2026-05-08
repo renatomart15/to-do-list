@@ -98,7 +98,9 @@ const Sidebar = () => {
           </motion.div>
         )}
       </motion.div>
-      <div className="hidden md:block mt-5 mb-5 mx-1 h-0.5 bg-[#6a7282] dark:bg-[#647282] rounded-4xl"></div>
+      <div
+        className={`${isOpen ? "mt-7" : "mt-5"} hidden md:block mb-5 mx-1 h-0.5 bg-[#6a7282] dark:bg-[#647282] rounded-4xl`}
+      ></div>
       <div className="hidden bg-[#f4f5f6] dark:bg-[#4a5565] dark:text-white rounded-lg md:flex items-center text-lg font-semibold cursor-pointer">
         <ListTodo
           size={30}

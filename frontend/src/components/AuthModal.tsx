@@ -14,7 +14,7 @@ type AuthModal = {
 
 const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
   const [mode, setMode] = useState(authMode);
-  const { login, register } = useAuth();
+  const { login, register, googleAuth } = useAuth();
 
   useEffect(() => {
     setMode(authMode);
@@ -59,7 +59,7 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
             text="continue_with"
             theme="filled_blue"
             onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
+              googleAuth(credentialResponse);
             }}
             onError={() => {
               console.log("Erro no login com Google");

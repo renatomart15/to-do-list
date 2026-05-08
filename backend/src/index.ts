@@ -16,6 +16,7 @@ app.use(
     origin: [
       "https://to-do-list-2xzv.onrender.com",
       "https://to-do-list-ebon-psi-95.vercel.app",
+      "http://localhost:5173",
     ],
     credentials: true,
   }),

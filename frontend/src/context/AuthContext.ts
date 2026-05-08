@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { type CredentialResponse } from "@react-oauth/google";
 
 export type User = {
   id: number;
@@ -12,6 +13,7 @@ export type Auth = {
   register: (email: string, password: string, name: string) => void;
   logout: () => void;
   user: User | null;
+  googleAuth: (credential: CredentialResponse) => void;
 };
 
 export const AuthContext = createContext<Auth | null>(null);
