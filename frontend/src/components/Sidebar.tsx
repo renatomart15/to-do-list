@@ -47,7 +47,7 @@ const Sidebar = () => {
                     className={`${!user?.picture && "text-green-500 bg-green-500/20"} p-4 rounded-full`}
                   >
                     {user?.picture ? (
-                      <img src={user.picture} />
+                      <img src={user.picture} className="rounded-full object-cover w-14 h-14" />
                     ) : (
                       <UserRoundCheck size={45} />
                     )}
