@@ -44,10 +44,10 @@ const Sidebar = () => {
               <div>
                 <div className="flex justify-center mb-2">
                   <div
-                    className={`${!user?.picture && "text-green-500 bg-green-500/20"} w-19 h-19 p-4 rounded-full`}
+                    className={`${!user?.picture && "text-green-500 bg-green-500/20 p-4"} w-19 h-19 rounded-full`}
                   >
                     {user?.picture ? (
-                      <img src={user.picture} className="rounded-full" />
+                      <img src={user.picture} className="rounded-full w-full h-full" />
                     ) : (
                       <UserRoundCheck size={45} />
                     )}
