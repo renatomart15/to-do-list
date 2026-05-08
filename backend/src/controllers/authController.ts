@@ -72,7 +72,7 @@ export const googleAuth = async (req: Request, res: Response) => {
     });
 
     const payload = ticket.getPayload();
-    
+
     if (payload) {
       const { name, picture, email } = payload;
       if (!email) {
@@ -99,7 +99,12 @@ export const googleAuth = async (req: Request, res: Response) => {
           .json({ message: "Usuário criado com sucesso", token });
       }
       const token = jwt.sign(
-        { id: user.id, email: user.email, name: user.name },
+        {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          picture: user.picture,
+        },
         process.env.JWT_SECRET!,
         { expiresIn: "30d" },
       );
