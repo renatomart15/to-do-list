@@ -43,8 +43,14 @@ const Sidebar = () => {
             {token ? (
               <div>
                 <div className="flex justify-center mb-2">
-                  <div className="text-green-500 bg-green-500/20 p-4 rounded-full">
-                    <UserRoundCheck size={45} />
+                  <div
+                    className={`${!user?.picture && "text-green-500 bg-green-500/20"} p-4 rounded-full`}
+                  >
+                    {user?.picture ? (
+                      <img src={user.picture} />
+                    ) : (
+                      <UserRoundCheck size={45} />
+                    )}
                   </div>
                 </div>
                 <div className="text-center mt-3">

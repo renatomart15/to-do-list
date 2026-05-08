@@ -58,8 +58,8 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
           <GoogleLogin
             text="continue_with"
             theme="filled_blue"
-            onSuccess={(credentialResponse) => {
-              googleAuth(credentialResponse);
+            onSuccess={async (credentialResponse) => {
+              await googleAuth(credentialResponse);
               onClose();
             }}
             onError={() => {
