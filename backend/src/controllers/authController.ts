@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../../lib/prisma";
+import { OAuth2Client } from "google-auth-library";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -28,7 +29,6 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  console.log("chegou no login", req.body);
   try {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({
@@ -56,8 +56,56 @@ export const login = async (req: Request, res: Response) => {
     );
     return res.status(200).json({ token: token });
   } catch (error) {
-    console.log("ERRO:", JSON.stringify(error));
-    console.log("ERRO mensagem:", (error as Error).message);
-    res.status(500).send("Erro no servidor");
+    res.status(500).send("Erro no servidor ao fazer login");
+  }
+};
+
+export const googleAuth = async (req: Request, res: Response) => {
+  const { credential } = req.body;
+
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    
+    if (payload) {
+      const { name, picture, email } = payload;
+      if (!email) {
+        return res.status(400).send("Email não encontrado no perfil do Google");
+      }
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+
+      if (!user) {
+        const newUser = await prisma.user.create({
+          data: { email: email, name: name, picture: picture },
+        });
+        const token = jwt.sign(
+          { id: newUser.id, email: newUser.email, name: newUser.name },
+          process.env.JWT_SECRET!,
+          { expiresIn: "30d" },
+        );
+
+        return res
+          .status(201)
+          .json({ message: "Usuário criado com sucesso", token });
+      }
+      const token = jwt.sign(
+        { id: user.id, email: user.email, name: user.name },
+        process.env.JWT_SECRET!,
+        { expiresIn: "30d" },
+      );
+      return res.status(200).json({ token: token });
+    }
+  } catch (error) {
+    res.status(500).send("Erro no servidor ao Autenticar usuário com Google");
   }
 };
