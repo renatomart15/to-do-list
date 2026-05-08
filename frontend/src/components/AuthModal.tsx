@@ -60,6 +60,7 @@ const AuthModal = ({ isOpen, authMode, onClose }: AuthModal) => {
             theme="filled_blue"
             onSuccess={(credentialResponse) => {
               googleAuth(credentialResponse);
+              onClose();
             }}
             onError={() => {
               console.log("Erro no login com Google");
