@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, LoaderCircle } from "lucide-react";
 
 type LoginFormProps = {
-  onConfirm: (email: string, password: string) => void;
+  onConfirm: (email: string, password: string) => Promise<void>;
 };
 
 const LoginForm = ({ onConfirm }: LoginFormProps) => {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <form className="p-6 rounded-lg select-none flex flex-col gap-4">
       <label className="flex bg-white dark:bg-[#4a5565] items-center rounded-4xl py-1 px-3 text-base">
@@ -33,13 +34,20 @@ const LoginForm = ({ onConfirm }: LoginFormProps) => {
       </label>
 
       <button
-        onClick={(e) => {
+        onClick={async (e) => {
           e.preventDefault();
-          onConfirm(form.email, form.password);
+          setIsLoading(true);
+          await onConfirm(form.email, form.password);
+          setIsLoading(false);
         }}
-        className="py-2 px-5 rounded-4xl mt-7 mb-2 bg-blue-500 text-white cursor-pointer active:scale-98 transition duration-300"
+        className={`${isLoading ? "bg-gray-500" : "bg-blue-500 cursor-pointer"} py-2 px-5 rounded-4xl mt-7 mb-2 text-white active:scale-98 transition duration-300`}
+        disabled={isLoading}
       >
-        Entrar
+        {isLoading ? (
+          <LoaderCircle className="animate-spin mx-auto" size={24} />
+        ) : (
+          "Entrar"
+        )}
       </button>
     </form>
   );

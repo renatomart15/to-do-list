@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { UserRound, Mail, Lock } from "lucide-react";
+import { UserRound, Mail, Lock, LoaderCircle } from "lucide-react";
 
 type RegisterFormProps = {
-  onConfirm: (email: string, password: string, name: string) => void;
+  onConfirm: (email: string, password: string, name: string) => Promise<void>;
 };
 
 const RegisterForm = ({ onConfirm }: RegisterFormProps) => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <form className="p-6 rounded-lg select-none flex flex-col gap-4">
       <label className="flex bg-white dark:bg-[#4a5565] items-center rounded-4xl py-1 px-3 text-base">
@@ -44,13 +45,20 @@ const RegisterForm = ({ onConfirm }: RegisterFormProps) => {
       </label>
 
       <button
-        onClick={(e) => {
+        onClick={async (e) => {
           e.preventDefault();
-          onConfirm(form.email, form.password, form.name);
+          setIsLoading(true);
+          await onConfirm(form.email, form.password, form.name);
+          setIsLoading(false);
         }}
-        className="py-2 mt-7 mb-2 rounded-4xl bg-blue-500 text-white cursor-pointer active:scale-98 transition duration-300"
+        disabled={isLoading}
+        className={`${isLoading ? "bg-gray-500" : "bg-blue-500 cursor-pointer"} py-2 mt-7 mb-2 rounded-4xl bg-blue-500 text-white cursor-pointer active:scale-98 transition duration-300`}
       >
-        Cadastrar
+        {isLoading ? (
+          <LoaderCircle className="animate-spin mx-auto" size={24} />
+        ) : (
+          "Cadastrar"
+        )}
       </button>
     </form>
   );
