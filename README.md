@@ -1,85 +1,107 @@
-#  To-Do List Full Stack
- 
-Uma aplicação de gerenciamento de tarefas com suporte a modo convidado, onde a aplicação administra as tasks através do localStorage, e autenticação de usuários com JWT, onde a aplicação passa a user a API para manejar as tasks quando o usuário está autenticado. Desenvolvido como projeto de estudos full stack.
- 
-##  Tecnologias
- 
+# 📝 To-Do List Full Stack
+
+Uma aplicação de gerenciamento de tarefas com suporte a modo convidado, onde a aplicação administra as tasks através do localStorage, e autenticação de usuários com JWT, onde a aplicação passa a usar a API para gerenciar as tasks quando o usuário está autenticado. Desenvolvido como projeto de estudos full stack.
+
+## 🚀 Tecnologias
+
 ### Backend
 - **Node.js** + **Express** + **TypeScript**
 - **Prisma ORM** + **PostgreSQL**
 - **JWT** para autenticação
 - **bcrypt** para criptografia de senhas
+- **google-auth-library** para autenticação com Google
+
 ### Frontend
 - **React** + **Vite** + **TypeScript**
 - **Tailwind CSS v4**
 - **Axios**
 - **Framer Motion**
 - **Lucide React**
+- **@react-oauth/google** para login com Google
+- **jwt-decode** para decodificação do token
+- **Zod** para validação de formulários
+
 ---
- 
-##  Funcionalidades
- 
--  Criar, editar, deletar e marcar tasks como concluídas
--  Filtrar tasks por All / Active / Completed
--  Modo convidado — use sem criar conta (dados salvos no localStorage)
--  Cadastro e login com email e senha
--  Tema claro e escuro
--  Menu lateral retrátil com animações
+
+## ✨ Funcionalidades
+
+- ✅ Criar, editar, deletar e marcar tasks como concluídas
+- ✅ Filtrar tasks por All / Active / Completed
+- ✅ Modo convidado — use sem criar conta (dados salvos no localStorage)
+- ✅ Cadastro e login com email e senha
+- ✅ Login com Google
+- ✅ Validação de formulários com Zod
+- ✅ Feedbacks de erro no login e cadastro
+- ✅ Loading nos botões de autenticação
+- ✅ Tema claro e escuro
+- ✅ Menu lateral retrátil com animações
+- ✅ Foto de perfil exibida quando logado com Google
+
 ---
- 
-##  Como rodar localmente
- 
+
+## ⚙️ Como rodar localmente
+
 ### Pré-requisitos
 - Node.js 18+
 - PostgreSQL
+
 ### Backend
- 
+
 ```bash
 cd backend
 npm install
 ```
- 
+
 Crie um arquivo `.env`:
- 
+
 ```env
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/todolist"
 JWT_SECRET="sua_chave_secreta_aqui"
+GOOGLE_CLIENT_ID="seu_google_client_id"
 ```
- 
+
 ```bash
 npx prisma migrate dev
 npm run dev
 ```
- 
-O backend roda em `http://localhost:10000`
- 
+
+O backend roda em `http://localhost:3000`
+
 ### Frontend
- 
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
- 
+
+Crie um arquivo `.env`:
+
+```env
+VITE_GOOGLE_CLIENT_ID="seu_google_client_id"
+```
+
 O frontend roda em `http://localhost:5173`
- 
+
 ---
- 
-##  Deploy
- 
+
+## 🌐 Deploy
+
 - **Frontend** → [Vercel](https://vercel.com)
 - **Backend** → [Render](https://render.com)
 - **Banco de dados** → [Neon](https://neon.tech)
+
 ---
- 
-##  Rotas da API
- 
+
+## 📌 Rotas da API
+
 ### Autenticação
 | Método | Rota | Descrição |
 |--------|------|-----------|
 | POST | /user/register | Cadastro de usuário |
 | POST | /user/login | Login de usuário |
- 
+| POST | /user/googleAuth | Login/cadastro com Google |
+
 ### Tasks (requer autenticação)
 | Método | Rota | Descrição |
 |--------|------|-----------|
@@ -88,5 +110,3 @@ O frontend roda em `http://localhost:5173`
 | PUT | /tasks/:id | Atualizar título da task |
 | PATCH | /tasks/:id | Alternar status da task |
 | DELETE | /tasks/:id | Deletar task |
- 
----
