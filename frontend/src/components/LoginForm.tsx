@@ -42,7 +42,7 @@ const LoginForm = ({ onConfirm }: LoginFormProps) => {
         />
       </label>
       <span
-        className={`${error === "" ? "py-2.5" : ""} text-red-500 text-sm text-center mb-14`}
+        className={`h-4 text-red-500 text-sm text-center mb-14`}
       >
         {error}
       </span>
@@ -66,7 +66,7 @@ const LoginForm = ({ onConfirm }: LoginFormProps) => {
             setIsLoading(false);
           }
         }}
-        className={`${isLoading ? "bg-gray-500" : "bg-blue-500 cursor-pointer"} py-2 px-5 rounded-4xl mt-7 mb-2 text-white active:scale-98 transition duration-300`}
+        className={`${isLoading ? "bg-blue-500/40" : "bg-blue-500 cursor-pointer"} py-2 px-5 rounded-4xl mt-7 mb-2 text-white active:scale-98 transition duration-300`}
         disabled={isLoading}
       >
         {isLoading ? (
