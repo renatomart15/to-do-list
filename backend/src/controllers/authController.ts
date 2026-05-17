@@ -9,7 +9,7 @@ export const register = async (req: Request, res: Response) => {
     const { email, password, name } = req.body;
     const user = await prisma.user.findUnique({ where: { email: email } });
     if (user) {
-      return res.status(409).send("Email já está cadastrado");
+      return res.status(409).send("Email já está cadastrado.");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
@@ -21,10 +21,10 @@ export const register = async (req: Request, res: Response) => {
       { expiresIn: "30d" },
     );
 
-    res.status(201).json({ message: "Usuário criado com sucesso", token });
+    res.status(201).json({ message: "Usuário criado com sucesso.", token });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Erro no servidor ao cadastrar usuário");
+    res.status(500).send("Erro no servidor ao cadastrar usuário.");
   }
 };
 
@@ -38,15 +38,16 @@ export const login = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(401).send("Email ou senha incorretos");
+      return res.status(401).send("Email ou senha incorretos. Verifique suas credenciais.");
     }
 
     if (!user.password) {
-      return res.status(401).send("Email ou senha incorretos");
+      return res.status(401).send("Email ou senha incorretos. Verifique suas credenciais.");
     }
+
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).send("Email ou senha incorretos");
+      return res.status(401).send("Email ou senha incorretos. Verifique suas credenciais.");
     }
 
     const token = jwt.sign(
@@ -56,7 +57,7 @@ export const login = async (req: Request, res: Response) => {
     );
     return res.status(200).json({ token: token });
   } catch (error) {
-    res.status(500).send("Erro no servidor ao fazer login");
+    res.status(500).send("Erro no servidor ao fazer login.");
   }
 };
 
@@ -76,7 +77,7 @@ export const googleAuth = async (req: Request, res: Response) => {
     if (payload) {
       const { name, picture, email } = payload;
       if (!email) {
-        return res.status(400).send("Email não encontrado no perfil do Google");
+        return res.status(400).send("Email não encontrado no perfil do Google.");
       }
       const user = await prisma.user.findUnique({
         where: {
@@ -96,7 +97,7 @@ export const googleAuth = async (req: Request, res: Response) => {
 
         return res
           .status(201)
-          .json({ message: "Usuário criado com sucesso", token });
+          .json({ message: "Usuário criado com sucesso.", token });
       }
       const token = jwt.sign(
         {
@@ -111,6 +112,6 @@ export const googleAuth = async (req: Request, res: Response) => {
       return res.status(200).json({ token: token });
     }
   } catch (error) {
-    res.status(500).send("Erro no servidor ao Autenticar usuário com Google");
+    res.status(500).send("Erro no servidor ao Autenticar usuário com Google.");
   }
 };

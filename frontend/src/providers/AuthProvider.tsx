@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
